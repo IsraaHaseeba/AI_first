@@ -37,15 +37,11 @@ def func(goals,start):
     m = folium.Map(location=[31.182882, 34.811615], zoom_start=8)
     html = f'HI there. You are In Palestine. <br> You are travelling from : {start}:! <br>'
 
-    iframe = folium.IFrame(html,
-                           width=200,
-                           height=100)
+    iframe = folium.IFrame(html,width=200,height=100)
 
-    popup = folium.Popup(iframe,
-                         max_width=200)
+    popup = folium.Popup(iframe,max_width=200)
 
-    marker = folium.Marker([Slon, Slat
-                            ], popup=popup).add_to(m)
+    marker = folium.Marker([Slon, Slat], popup=popup).add_to(m)
 
     for goal in goals:
         Glat, Glon = LatLon(goal,info)

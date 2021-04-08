@@ -23,10 +23,14 @@ def sub_IDS(ajd_List,start, goal, level,exapnded,track):
 
 
 def check_children(ajd_List,start,goal,depth):
-    track=[]
+    track = []
     exapnded = []
     exapnded.append(start)
     tempLevel = 1
+    if(start==goal):
+        track.append(start)
+        return exapnded, 0, track
+
     for level in range(1, depth):
         if(sub_IDS(ajd_List,start, goal, level,exapnded,track)):
             tempLevel=level
