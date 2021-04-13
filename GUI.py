@@ -5,84 +5,95 @@ import IDS
 from tkinter import messagebox
 import webbrowser
 import mappp
-
+import UCS
+import optimal
 
 
 
 adj_List_IDS = {
-    "Jenin": ["Tulkarm", "Nablus", "Tiberias", "Nazareth"],
-    "Nablus": ["Tubas", "Tulkarm", "Qalqilia", "Salfit",
-               "Ramallah", "Jerico","Jenin"],
-    "Ramallah": ["Nablus", "Jerico", "Jerusalem", "Salfit"],
-    "Jerico" : ["Ramallah", "Nablus"],
-    "Jerusalem" : [ "Ramallah"],
-    "Salfit" : ["Nablus", "Ramallah"],
-    "Nazareth" : ["Jenin"],
-    "Tulkarm" : ["Jenin", "Nablus"],
-    "Tiberias" : ["Jenin"],
-    "Tubas" : ["Nablus"],
-    "Qalqilia" : ["Nablus"]
+    "Ramallah":["Nablus", "Salfit", "Jericho", "Jerusalem"],
+    "Nablus":["Tubas", "Tulkarm", "Qalqilia", "Salfit","Ramallah", "Jericho","Jenin"],
+    "Jerusalem":["Ramallah", "Jericho", "Bethlehem","Yafo"],
+    "Jenin":["Tulkarm", "Nablus", "Tubas","Nazareth","Tiberias"],
+    "Tubas":["Jenin", "Nablus","Jericho"],
+    "Nazareth":["Jenin","Tiberias","Carmiel","Acre"],
+    "Carmiel":["Ra's alnaqoura", "Acre", "Nazareth", "Tiberias"],
+    "Tulkarm":["Jenin", "Nablus","Qalqilia","Yafo"],
+    "Qalqilia":["Nablus", "Tulkarm","Salfit","Yafo"],
+    "Salfit":["Nablus","Ramallah","Qalqilia","Yafo"],
+    "Hebron":["Bethlehem","Bir Alsabe'"],
+    "Bethlehem":["Hebron", "Jerusalem"],
+    "Jericho":["Tubas", "Nablus", "Ramallah","Jerusalem","Tiberias"],
+    "Tiberias":["Nazareth", "Carmiel", "Jericho", "Jenin"],
+    "Haifa":["Acre", "Yafo"],
+    "Bir Alsabe'":["Hebron"],
+    "Acre":["Carmiel", "Haifa", "Nazareth", "Ra's alnaqoura"],
+    "Yafo":["Haifa", "Tulkarm", "Qalqilia", "Salfit", "Jerusalem"],
+    "Ra's alnaqoura":["Carmiel", "Acre"]
 }
 
 
-
-
-
 def click(args,alg):
-    costs=[]
+
     depth=10
     dest=[]
 
     if (SrcCities.get() != "" and list.curselection()):
+        #take args
         start = (SrcCities.get())
         value = list.curselection()
         for i in value:
             dest.append(list.get(i))
+        #start searching
 
-        if(args==1):
-            y=0
+        # Optimal
+        if (args == 3):
+            cost = 0
+            track = []
+            track,cost=optimal.main(start,dest)
+            tracklist = ''
+            expandedlist = ''
+
+            for i in track:
+                tracklist = tracklist + " -> " + str(i)
+            list1.insert(END, tracklist)
+            costs.insert(END, str(cost))
+
+
+
+        else:
             for goal in dest:
-                cost=0
+                cost = 0
 
-                expanded, cost, track = IDS.check_children(adj_List_IDS, start, goal, depth)  # method returning track and cost of the goal
+                #IDS
+                if(args==2):
+                    expanded, cost, track = IDS.check_children(adj_List_IDS, start, goal,depth)
+                    track.reverse()
+                #UCS
+                elif(args==1):
+                    expanded, cost, track = UCS.main(start,goal)
+
+
                 tracklist = ''
                 expandedlist = ''
-                track.reverse()
+
                 for i in track:
-                    tracklist=tracklist+ " -> "+ i
+                    tracklist = tracklist + " -> " + str(i)
                 list1.insert(END, tracklist)
 
                 for i in expanded:
-                    expandedlist=expandedlist+ " -> "+ i
+                    expandedlist = expandedlist + " -> " + str(i)
                 list2.insert(END, expandedlist)
 
-                label = Label(canvas,  text=goal+": "+ str(cost),compound=RIGHT)
-                canvas.create_window(0, y, window=label, anchor=NW)
-                y += 20
+                costs.insert(END, goal+": "+ str(cost))
+                #label = Label(canvas, text=goal + ": " + str(cost), compound=RIGHT)
+                #canvas.create_window(0, y, window=label, anchor=NW)
 
-            canvas.config(yscrollcommand=scrollbar.set, scrollregion=(0, 0, 0, y))
-
-
-
-        elif(args==2):
-            pass
-
-        elif(args==3):
-            dest=[]
-            start=[]
-            if (list3.curselection() and list2.curselection()):
-                value1=list2.curselection()
-                value2=list3.curselection()
-                for i in value1:
-                    start.append(list.get(i))
-                for i in value2:
-                    dest.append(list.get(i))
-            else:
-                tk.messagebox.showerror("ERROR", "Missing requirement")
+            #canvas.config(yscrollcommand=scrollbar.set, scrollregion=(0, 0, 0, y))
 
     else:
         tk.messagebox.showerror("ERROR", "Missing requirement")
-    #cost.config(text=costs)
+
 
 def showmap():
     value = list.curselection()
@@ -99,7 +110,9 @@ def showList():
                    yscrollcommand=yscrollbar.set)
     yscrollbar.pack(side=RIGHT, fill=BOTH)
     list.pack(expand=YES, fill="both", side=LEFT)
-    x = ["Ramallah", "Nablus", "Jerusalem", "Jenin", "Tubas", "l", "l", "l", "l", "l", "l", "d"]
+    x = ["Ramallah", "Yafo","Nablus", "Jerusalem", "Jenin", "Tubas", "Nazareth",  "Carmiel",
+        "Tulkarm", "Salfit", "Hebron", "Bethlehem", "Jericho", "Tiberias", "Haifa", "Bir Alsabe'",
+         "Acre","Ra's alnaqoura","Qalqilia"]
     for each_item in range(len(x)):
         list.insert(END, x[each_item])
     yscrollbar.config(command=list.yview)
@@ -109,10 +122,11 @@ def reset():
     list1.delete(0, 'end')
     list2.delete(0,'end')
     list.delete(0,'end')
+    costs.delete(0,'end')
     for each_item in range(len(x)):
         list.insert(END, x[each_item])
     SrcCities.set('')
-    showList()
+
 #gui
 gui = Tk(className='Find your destination route!')
 gui.geometry("1368x2000")
@@ -130,7 +144,9 @@ destLable.place(x=100, y=260)
 
 #SRC comboBOX
 SrcCities =ttk.Combobox(bgdisplay,width= 30)
-SrcCities['values']=("Ramallah","Nablus")
+SrcCities['values']=("Ramallah","Yafo", "Nablus", "Jerusalem", "Jenin", "Tubas", "Nazareth", "Carmiel",
+        "Tulkarm", "Salfit", "Hebron", "Qalqilia","Bethlehem", "Jericho", "Tiberias", "Haifa", "Bir Alsabe'",
+         "Acre","Ra's alnaqoura")
 SrcCities.place(x=300, y=210)
 
 #checkBOX for destinations
@@ -140,16 +156,18 @@ list = Listbox(canvas, exportselection=0,selectmode = "multiple",
                yscrollcommand = yscrollbar.set)
 yscrollbar.pack(side = RIGHT, fill = BOTH)
 list.pack(  expand = YES, fill = "both", side=LEFT)
-x = ["Ramallah", "Nablus", "Jerusalem","Jenin", "Tubas","l","l", "l", "l", "l","l","d"]
+x = ["Ramallah", "Nablus", "Yafo","Jerusalem","Qalqilia", "Jenin", "Tubas", "Nazareth", "Carmiel",
+        "Tulkarm", "Salfit", "Hebron", "Bethlehem", "Jericho", "Tiberias", "Haifa", "Bir Alsabe'",
+         "Acre","Ra's alnaqoura"]
 for each_item in range(len(x)):
     list.insert(END, x[each_item])
 yscrollbar.config(command = list.yview)
 canvas.place(x=300, y=260)
 
 #CHOICES
-UCS= Button(bgdisplay, text="Uniform Cost ", width= 45,fg='white', bg='#a76316',font=(25)
+UCSS= Button(bgdisplay, text="Uniform Cost ", width= 45,fg='white', bg='#a76316',font=(25)
             ,command=lambda :click(1,"UCS"))
-UCS.place(x=100, y=460)
+UCSS.place(x=100, y=460)
 
 IDSS= Button(bgdisplay, text="Iterative Deepening ", width= 45,fg='white', bg='#a76316',font=(25)
            ,command=lambda :click(2,"IDS"))
@@ -164,9 +182,12 @@ mapB= Button(bgdisplay, text="Map it!",width=14,height=3, fg='white', bg='#a7631
 mapB.place(x=1070, y=590)
 #cost
 canvas = Canvas(gui, width=200, height=70)
-canvas.place(x=830, y=590)
-scrollbar = Scrollbar(canvas, orient=VERTICAL, command=canvas.yview)
-scrollbar.place(relx=1, rely=0, relheight=1, anchor=NE)
+scrollbar = Scrollbar(canvas, orient=VERTICAL)
+costs=Listbox(canvas,yscrollcommand=scrollbar.set)
+scrollbar.config( command=costs.yview)
+scrollbar.pack(side = RIGHT, fill = BOTH)
+costs.pack(  expand = YES, fill = "both", side=LEFT)
+canvas.place(x=830, y=515)
 #
 Citycanvas = Canvas(gui, width=80, height=5)
 scrollbar2 = Scrollbar(Citycanvas, orient=HORIZONTAL)
@@ -177,7 +198,7 @@ Vscrollbar2.pack(side = RIGHT, fill = BOTH)
 scrollbar2.config(command = list1.xview)
 Vscrollbar2.config(command = list1.yview)
 list1.pack(  expand = YES, fill = "both", side=LEFT)
-Citycanvas.place(x=830, y=160)
+Citycanvas.place(x=830, y=80)
 
 #
 Citycanvas2 = Canvas(gui, width=50)
@@ -189,69 +210,19 @@ Vscrollbar3.pack(side = RIGHT, fill = BOTH)
 scrollbar3.config(command = list2.xview)
 Vscrollbar3.config(command = list2.yview)
 list2.pack(  expand = YES, fill = "both", side=LEFT)
-Citycanvas2.place(x=830, y=380)
+Citycanvas2.place(x=830, y=300)
 
+'''
 #multiple starts
 mulStart= Button(bgdisplay, text="Multiple starts (*)",width=13,height=1 , fg='white', bg='#324752',font=(5)
             ,command=lambda :showList())
-mulStart.place(x=520, y=210)
+mulStart.place(x=520, y=210)'''
 
 #reset button
 resetB= Button(bgdisplay, text="RESET",width=7, fg='white', bg='#324752',font=(1)
             ,command=lambda :reset())
 resetB.place(x=1230, y=620)
-'''
-#Bonusgoal
-srcLable3= Label(bgdisplay, text="Start Locations", width= 20,fg='white', bg='#324752',font=(25))
-srcLable3.place(x=720, y=210)
-destLable3= Label(bgdisplay, text="Destinations", width= 20,fg='white', bg='#324752',font=(25))
-destLable3.place(x=920, y=210)
-#source check
-canvas2= Canvas(bgdisplay, width=10, height=10)
-yscrollbar2= Scrollbar(canvas2)
-list2 = Listbox(canvas2, selectmode = "multiple",
-               yscrollcommand = yscrollbar2.set)
-yscrollbar2.pack(side = RIGHT, fill = BOTH)
-list2.pack(  expand = YES, fill = "both", side=LEFT)
-for each_item in range(len(x)):
-    list2.insert(END, x[each_item])
-yscrollbar2.config(command = list2.yview)
-canvas2.place(x=720, y=250)
-#check des
-canvas3= Canvas(bgdisplay, width=10, height=10)
-yscrollbar3 = Scrollbar(canvas3)
-list3 = Listbox(canvas3, selectmode = "multiple",
-               yscrollcommand = yscrollbar3.set)
-yscrollbar3.pack(side = RIGHT, fill = BOTH)
-list3.pack(  expand = YES, fill = "both", side=LEFT)
-for each_item in range(len(x)):
-    list3.insert(END, x[each_item])
-yscrollbar3.config(command = list3.yview)
-canvas3.place(x=920, y=250)
-Opt2= Button(bgdisplay, text="Multiple Start-Destination Optimal Search",width= 40, fg='white',
-             bg='#a76316',font=(25),command=lambda :click(3,"Bonus"))
-Opt2.place(x=720, y=440)
 
-'''
-
-
-'''
-#graph
-graph= Button(bgdisplay, text="Click here",width= 10, height=2,fg='white', bg='#a76316',font=(25))
-graph.place(x=855, y=560)
-
-#map
-map= Button(bgdisplay, text="Click here",width= 10, height=2,fg='white', bg='#a76316',font=(25))
-map.place(x=1060, y=560)'''
-#popup for google map
-'''def popupmsg(msg):
-    popup = tk.Tk()
-    popup.wm_title("!")
-    label = ttk.Label(popup, text=msg, font=NORM_FONT)
-    label.pack(side="top", fill="x", pady=10)
-    B1 = ttk.Button(popup, text="Okay", command = popup.destroy)
-    B1.pack()
-    popup.mainloop()'''
 
 
 gui.mainloop()

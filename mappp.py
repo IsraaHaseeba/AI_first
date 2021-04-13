@@ -11,6 +11,7 @@ def readfile():
     info = []
     with open("locations.json") as f:
         data = json.load(f)
+
     for feature in data['features']:
         row = []
         row.append(feature['City'])

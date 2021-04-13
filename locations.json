@@ -1,0 +1,270 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Nazareth",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.28533935546875,
+          32.71104439078295
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Gaza",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.451751708984375,
+          31.51182508982725
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Jerusalem",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.220794677734375,
+          31.77837995377096
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Carmiel",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.28808593749999,
+          32.919943762979564
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Jenin",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.29632568359375,
+          32.45415593941475
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Tulkarm",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.02716064453125,
+          32.3115094150107
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Nablus",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.25787353515625,
+          32.21919132617101
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Salfit",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.18165588378906,
+          32.07966559622046
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Ramallah",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.20500183105469,
+          31.90087807776307
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Hebron",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.08689880371094,
+          31.528799784726967
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Bethlehem",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.19744873046875,
+          31.703634716625768
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Jericho",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.45906066894531,
+          31.85423130442635
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Tiberias",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.52154541015625,
+          32.78265637602964
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Haifa",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.0079345703125,
+          32.810361684869015
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Bir Alsabe'",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.78271484375,
+          31.25507418542194
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Tubas",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.386962890625,
+          32.312670050625805
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Acre",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.07453918457031,
+          32.92628384068991
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Ra's alnaqoura",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.1068115234375,
+          33.08463802391685
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Rafah",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.26910400390625,
+          31.266813252320688
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Deir el-Balah",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.35150146484375,
+          31.421631960419596
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City": "Qalqilia",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.02716064453125,
+          32.2313896627376
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "City":"Yafo",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.803314208984375,
+          32.12212726745142
+        ]
+      }
+    }
+  ]
+}
